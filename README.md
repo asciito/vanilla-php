@@ -9,10 +9,23 @@ described.
 
 ---
 
+## Notes
+
+With the first challenge I notice a few things:
+
+* I need to pre-configure the DB before any usage, and be sure is working, this takes me time if I already begin with the challenge
+* I need to have the credentials for the DB, and this is because I don't start project so often and I tent to forget the keys (even if they're default).
+* The first commit with the structure: ```challenge-[N]: add challenge files```. This is going to be the only commit that have the challenge at the time is over
+* The next commits ```challenge-[N]: [something else]``` would be to include missing files like the SQL to create the structure for the challenge.
+
+---
+
 ## Rules
 
-The rules are simple, the time begins when I make the first commit of the challenge I'm currently doing, and the time
-ends when I made the last commit of the challenge, so in more simple words the commits marks the beginning and the end of the challenge.
+The rules are simple, the time begins when I make the first commit of the challenge I'm currently doing (a ```index.php``` file empty), and the time
+ends when I made the last commit of the challenge, so, in simple words the commits marks the beginning and the end of the challenge.
+
+I will create a branch to store the changes and once the challenge is finished, I will PR this branch to main.
 
 ### Design and feel
 
