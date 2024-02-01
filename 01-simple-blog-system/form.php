@@ -26,6 +26,8 @@ if ($action === 'edit.php') {
 <html lang="en">
 <head>
     <title>Form</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
     <main>

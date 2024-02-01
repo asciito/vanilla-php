@@ -14,6 +14,8 @@ $posts = $postsQuery->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 <head>
     <title>Blog</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body>
 <main>
