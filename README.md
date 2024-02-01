@@ -14,6 +14,11 @@ described.
 The rules are simple, the time begins when I make the first commit of the challenge I'm currently doing, and the time
 ends when I made the last commit of the challenge, so in more simple words the commits marks the beginning and the end of the challenge.
 
+### Design and feel
+
+The challenges doesn't need to have any kind of design, but for the sake of completion (for me), once I finish the challenge, I can add all
+the styles I want, but just when the challenge is finished.
+
 ### Important
 I can search for information before to begin to write any line of code, and have all the information available while I'm doing the challenge.
 Ask for answers to AI tools (the solution code), or copy/paste code from any source is prohibited.
