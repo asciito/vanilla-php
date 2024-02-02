@@ -1,6 +1,8 @@
 <?php
 require __DIR__.'/includes/config.php';
 
+$message = $_GET['message'] ?? null;
+
 $db = db();
 
 $postsQuery = $db->query(<<<SQL
@@ -16,8 +18,26 @@ $posts = $postsQuery->fetchAll(PDO::FETCH_ASSOC);
     <title>Form</title>
 
     <script src="https://cdn.tailwindcss.com"></script>
+
+    <script>
+        window.onload = () => {
+            setTimeout(() =>
+                    document
+                        .getElementById('message')
+                        .classList
+                        .add('opacity-0', 'delay-200', 'duration-1000'),
+                2000
+            );
+        }
+    </script>
 </head>
-<body class="w-screen h-screen flex justify-center items-center">
+<body class="w-screen h-screen flex justify-center items-center relative">
+    <?php if (! empty($message)): ?>
+        <div id="message" class="absolute top-0 right-0 mt-8 opacity-1 transition">
+            <p class="p-4 px-8 rounded-l bg-blue-500 text-white uppercase to-hide"><?php echo $message ?></p>
+        </div>
+    <?php endif; ?>
+
     <main class="bg-white shadow-lg p-8 rounded-md w-100 md:w-6/12 space-y-4">
         <div class="flex justify-start">
             <a href="./form.php?action=create" class="block px-4 rounded-md text-white py-2 bg-gray-800 hover:bg-gray-900 active:bg-gray-800 focus:outline-none focus:ring-2 focus:border-transparent focus:ring-blue-400/50">Create new</a>
