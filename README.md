@@ -40,6 +40,27 @@ Ask for answers to AI tools (the solution code), or copy/paste code from any sou
 
 ---
 
+## How to run challenges
+
+The challenges are simple PHP scripts, so you can use the already include PHP server. To run a challenge, just go to the folder you want, and
+run the next command:
+
+```shell
+php -S 0.0.0.0:8080
+```
+
+**Note**
+
+Some challenges need some ```env``` variables, and to do that just simple prefix the ```php -s ...``` command with the
+```env``` variables needed.
+
+e.g.
+```shell
+DB_NAME=... DB_PASS=... ... php -S 0.0.0.0:8080
+```
+
+---
+
 ## Challenges
 
 1. **Simple Blog System:**
