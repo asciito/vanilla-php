@@ -1,11 +1,54 @@
 <?php
 
-require __DIR__.DIRECTORY_SEPARATOR.'includes'.DIRECTORY_SEPARATOR.'functions.php';
 
-$file = $_GET['filename'] ?? null;
+/**
+ * Read a CSV file
+ *
+ * @param string $filename The name of the file to read
+ * @return array|false Array with the CSV values, false if the file doesn't exist
+ */
+function read_csv(string $filename): array|false
+{
+    $file = implode(DIRECTORY_SEPARATOR, [__DIR__, 'storage', "$filename.csv"]);
 
-$csv = read_csv(__DIR__.DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.$file.'.csv');
+    if (! file_exists($file)) {
+        return false;
+    }
 
+    // OPEN FILE
+    $stream = fopen($file, 'r');
+
+    // READ FIRST LINE (HEADERS)
+    $headers = explode(',', fgets($stream));
+
+    if (count($headers) <= 0) {
+        throw new RuntimeException("The file is not a valid CSV file");
+    }
+
+    $csv['headers'] = $headers;
+
+    if (! feof($stream)) {
+        // READ THE REST OF THE LINES
+        while (! feof($stream)) {
+            $line = fgets($stream);
+
+            if ($line === false) {
+                throw new RuntimeException('There was an error trying to read a line from the file');
+            }
+
+            $csv['rows'][] = explode(',', $line);
+        }
+    }
+
+    // CLOSE FILE
+    fclose($stream);
+
+    return $csv;
+}
+
+$filename = htmlspecialchars($_GET['filename'] ?? '', encoding: 'UTF-8');
+
+$csv = read_csv($filename);
 ?>
 <!DOCTYPE html>
 <html lang="en-US">

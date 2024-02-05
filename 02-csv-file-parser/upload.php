@@ -17,7 +17,7 @@ try {
     $finfo = new finfo(FILEINFO_MIME_TYPE);
 
     // Check if file is CSV
-    if (false === $ext = in_array(
+    if (! in_array(
             $finfo->file($tmpName),
             [
                 'text/csv',
@@ -31,7 +31,7 @@ try {
     $newFileName = sha1_file($tmpName).'.csv';
 
     // Move file
-    if (!move_uploaded_file(
+    if (! move_uploaded_file(
         $tmpName,
         __DIR__.DIRECTORY_SEPARATOR.'storage'.DIRECTORY_SEPARATOR.$newFileName,
     )) {
@@ -43,4 +43,4 @@ try {
     $message = $e->getMessage();
 }
 
-header("Location: /?message=$message");
+header('Location: /?message='.htmlspecialchars($message, encoding: 'UTF-8'));
