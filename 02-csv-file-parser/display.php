@@ -53,32 +53,37 @@ $csv = read_csv($filename);
 <!DOCTYPE html>
 <html lang="en-US">
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CSV Files</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <main>
-        <?php if (! empty($csv)): ?>
-            <table>
-                <thead>
-                    <tr>
-                        <?php foreach ($csv['headers'] as $header): ?>
-                            <th><?= $header ?></th>
-                        <?php endforeach; ?>
-                    </tr>
+<body class="flex items-center justify-center min-h-screen bg-gray-100 my-12">
+    <?php if (! empty($csv)): ?>
+        <div class="container">
+            <table class="min-w-full table-auto bg-white shadow-md rounded-lg overflow-hidden">
+                <thead class="bg-gray-200">
+                <tr>
+                    <?php foreach ($csv['headers'] as $header): ?>
+                        <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            <?= $header; ?>
+                        </th>
+                    <?php endforeach; ?>
+                </tr>
                 </thead>
-                <tbody>
+                <tbody class="bg-white divide-y divide-gray-200">
                     <?php foreach ($csv['rows'] as $row): ?>
                         <tr>
                             <?php foreach ($row as $value): ?>
-                                <td><?= $value ?></td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500"><?= $value ?></td>
                             <?php endforeach; ?>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-        <?php else: ?>
-            <p>The file requested is not available, or not exists at all</p>
-        <?php endif; ?>
-    </main>
+        </div>
+    <?php else: ?>
+        <p>The file requested is not available, or not exists at all</p>
+    <?php endif; ?>
 </body>
 </html>
