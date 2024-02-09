@@ -1,0 +1,5 @@
+CREATE TABLE urls (
+    id        INTEGER PRIMARY KEY AUTOINCREMENT,
+    real_url  VARCHAR(512) NOT NULL,
+    shortcode VARCHAR(50) NOT NULL UNIQUE
+);
