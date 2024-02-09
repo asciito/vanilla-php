@@ -1,0 +1,42 @@
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - ./${CURRENT_PROJECT:-01-simple-blog-system}:/var/www/html
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+    links:
+      - php
+
+  php:
+    build:
+      dockerfile: ./docker/Dockerfile-php
+    environment:
+      DB_HOST: ${DB_HOST:-db}
+      DB_NAME: ${DB_NAME:-simple_blog_system}
+      DB_USER: ${DB_USER:-root}
+      DB_PASS: ${DB_PASS:-password}
+    volumes:
+      - ./${CURRENT_PROJECT}:/var/www/html
+    links:
+      - db
+
+  db:
+    image: mysql:8.0
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: ${DB_NAME:-simple_blog_system}
+      MYSQL_ROOT_PASSWORD: ${DB_PASS:-password}
+    volumes:
+      - data:/var/lib/mysql
+
+volumes:
+  data:
+    driver: local
+    driver_opts:
+      type: 'none'
+      o: bind
+      device: './data'
+
