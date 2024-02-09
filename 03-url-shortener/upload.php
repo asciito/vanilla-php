@@ -15,10 +15,12 @@ $hash = md5($url);
 
 $db = connection();
 
-$query = $db->prepare(<<<SQL
-INSERT INTO urls (real_url, shortcode)
-VALUES (:real, :short);
-SQL);
+$query = $db->prepare(
+    <<<SQL
+    INSERT INTO urls (real_url, shortcode)
+    VALUES (:real, :short);
+    SQL
+);
 
 $query->bindValue('real', $url);
 $query->bindValue('short', $hash);

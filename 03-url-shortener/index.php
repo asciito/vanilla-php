@@ -9,11 +9,13 @@ $db = connection();
 $rows = null;
 
 if ($_SERVER["REQUEST_URI"] !== '/') {
-    $statement = $db->prepare(<<<SQL
-    SELECT *
-    FROM urls
-    WHERE shortcode = :code;
-    SQL);
+    $statement = $db->prepare(
+        <<<SQL
+        SELECT *
+        FROM urls
+        WHERE shortcode = :code;
+        SQL
+    );
 
     $statement->bindValue('code', trim($_SERVER["REQUEST_URI"], '/'));
 
