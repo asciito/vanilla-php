@@ -3,14 +3,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('This script only accepts POST method');
 }
 
-require __DIR__ . DIRECTORY_SEPARATOR . 'includes' .DIRECTORY_SEPARATOR . 'connection.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'includes' .DIRECTORY_SEPARATOR . 'functions.php';
 
 $url = $_POST['url'];
 
 // Transform URL
 $hash = md5($url);
 
-$db = db();
+$db = connection();
 
 $query = $db->prepare(<<<SQL
 INSERT INTO urls (real_url, shortcode)

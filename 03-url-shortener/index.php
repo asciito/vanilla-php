@@ -1,8 +1,8 @@
 <?php
 
-require __DIR__ . DIRECTORY_SEPARATOR . 'includes' .DIRECTORY_SEPARATOR . 'connection.php';
+require __DIR__ . DIRECTORY_SEPARATOR . 'includes' .DIRECTORY_SEPARATOR . 'functions.php';
 
-$db = db();
+$db = connection();
 
 if ($_SERVER["REQUEST_URI"] !== '/') {
     $statement = $db->prepare(<<<SQL
