@@ -6,6 +6,8 @@ require __DIR__ . DIRECTORY_SEPARATOR . 'includes' .DIRECTORY_SEPARATOR . 'funct
 
 $db = connection();
 
+$rows = null;
+
 if ($_SERVER["REQUEST_URI"] !== '/') {
     $statement = $db->prepare(<<<SQL
     SELECT *
@@ -25,6 +27,13 @@ if ($_SERVER["REQUEST_URI"] !== '/') {
         header("Location: $url", true, 302);
         exit();
     }
+} else {
+    $query = $db->prepare(<<<SQL
+        SELECT *
+        FROM urls;
+    SQL);
+
+    $rows = $query->execute();
 }
 
 ?>
@@ -46,6 +55,16 @@ if ($_SERVER["REQUEST_URI"] !== '/') {
 
             <button type="submit">Submit</button>
         </form>
+
+        <ul>
+            <?php while($row = $rows->fetchArray(SQLITE3_ASSOC)): ?>
+                <li>
+                    <a href="http://localhost:8080/<?= $row['shortcode'] ?>">
+                        <?= $row['shortcode']; ?>
+                    </a>
+                </li>
+            <?php endwhile; ?>
+        </ul>
 
         <?php if (($success = flash('success')) || ($error = flash('error'))): ?>
             <p><?= $success ?? $error ?></p>
