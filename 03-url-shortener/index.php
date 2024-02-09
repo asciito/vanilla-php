@@ -60,7 +60,7 @@ if ($_SERVER["REQUEST_URI"] !== '/') {
         <ul>
             <?php while($row = $rows->fetchArray(SQLITE3_ASSOC)): ?>
                 <li>
-                    <a href="http://localhost:8080/<?= $row['shortcode'] ?>">
+                    <a href="/<?= $row['shortcode'] ?>">
                         <?= $row['shortcode']; ?>
                     </a>
                 </li>
