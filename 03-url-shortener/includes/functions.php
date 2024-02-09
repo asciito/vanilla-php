@@ -43,3 +43,13 @@ function flash(string $key, string $message = null): string|null|bool
 
     return true;
 }
+
+/**
+ * Redirect to the given URL
+ */
+function redirect(string $url): void
+{
+    header("Location: $url");
+
+    exit();
+}

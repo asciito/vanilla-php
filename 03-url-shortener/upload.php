@@ -13,8 +13,7 @@ $url = filter_var($_POST['url'], FILTER_VALIDATE_URL, ["options" => FILTER_NULL_
 if (empty($url)) {
     flash('error', 'The value provided, is not a valid URL');
 
-    header('Location: /');
-    exit();
+    redirect('/');
 }
 
 // Transform URL
@@ -40,4 +39,4 @@ if ($result === false) {
     flash('success', 'The URL was uploaded');
 }
 
-header("Location: /");
+redirect('/');

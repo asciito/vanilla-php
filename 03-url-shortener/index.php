@@ -26,8 +26,7 @@ if ($_SERVER["REQUEST_URI"] !== '/') {
 
         $url = $row['real_url'];
 
-        header("Location: $url", true, 302);
-        exit();
+        redirect($url);
     }
 } else {
     $query = $db->prepare(<<<SQL
