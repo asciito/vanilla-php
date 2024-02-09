@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' .DIRECTORY_SEPARATOR . 'functions.php';
 
 $db = connection();
@@ -44,6 +46,10 @@ if ($_SERVER["REQUEST_URI"] !== '/') {
 
             <button type="submit">Submit</button>
         </form>
+
+        <?php if (($success = flash('success')) || ($error = flash('error'))): ?>
+            <p><?= $success ?? $error ?></p>
+        <?php endif; ?>
     </main>
 </body>
 </html>

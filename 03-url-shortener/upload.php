@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit('This script only accepts POST method');
 }
@@ -22,10 +25,10 @@ $query->bindValue('short', $hash);
 
 $result = $query->execute();
 
-if ($result->numColumns() == 0) {
-    $message = "The URL shortcode is: '$hash'";
+if ($result === false) {
+    flash('error', "The URL is already uploaded.");
 } else {
-    $message = "The shortcode is: '$hash'";
+    flash('success', 'The URL was uploaded');
 }
 
 header("Location: /");

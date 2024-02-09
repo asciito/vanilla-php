@@ -21,3 +21,25 @@ function connection(): SQLite3
 
     return new SQLite3($file);
 }
+
+/**
+ * Flash a message or get a message from session
+ */
+function flash(string $key, string $message = null): string|null|bool
+{
+    if (empty($message)) {
+        if (array_key_exists($key, $_SESSION)) {
+            $message = $_SESSION[$key];
+
+            unset($_SESSION[$key]);
+
+            return $message;
+        }
+
+        return null;
+    }
+
+    $_SESSION[$key] = $message;
+
+    return true;
+}
