@@ -8,7 +8,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 require __DIR__ . DIRECTORY_SEPARATOR . 'includes' .DIRECTORY_SEPARATOR . 'functions.php';
 
-$url = $_POST['url'];
+$url = filter_var($_POST['url'], FILTER_VALIDATE_URL, ["options" => FILTER_NULL_ON_FAILURE]);
+
+if (empty($url)) {
+    flash('error', 'The value provided, is not a valid URL');
+
+    header('Location: /');
+    exit();
+}
 
 // Transform URL
 $hash = md5($url);
