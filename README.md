@@ -61,6 +61,16 @@ DB_PASS=
 DB_INIT_FILE
 ```
 
+Once you configure the ```.env``` file, you should run the command:
+
+```shell
+docker compose up
+```
+
+---
+
+## ```.env``` configuration
+
 ### ```CURRENT_PROJECT```
 
 This is the name of the project you want to use
@@ -97,9 +107,9 @@ e.g
 DB_INIT_FILE=01-simple-blog-system/database/structure.sql
 ```
 
----
+<br>
 
-#### Note
+#### Final notes
 Not all the projects needs a database, so is not mandatory to provided the values for the DB in the```.env```
 file, if the project doesn't need one.
 
