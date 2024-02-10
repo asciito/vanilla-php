@@ -15,13 +15,15 @@ function joinPaths(array $paths): string
 /**
  * Get the DB connection
  */
-function connection(): SQLite3
+function connection(): PDO
 {
-    $file = joinPaths([__DIR__, '..', 'database', 'database.sqlite']);
+    $dbHost = getenv('DB_HOST');
+    $dbName = getenv('DB_NAME');
+    $dbUser = getenv('DB_USER');
+    $dbPass = getenv('DB_PASS');
 
-    return new SQLite3($file);
+    return new PDO("mysql:host=$dbHost;dbname=$dbName", $dbUser, $dbPass);
 }
-
 /**
  * Flash a message or get a message from session
  */

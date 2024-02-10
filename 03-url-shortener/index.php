@@ -17,24 +17,20 @@ if ($_SERVER["REQUEST_URI"] !== '/') {
         SQL
     );
 
-    $statement->bindValue('code', trim($_SERVER["REQUEST_URI"], '/'));
+    $statement->execute(['code' => trim($_SERVER["REQUEST_URI"], '/')]);
 
-    $result = $statement->execute();
-
-    if ($result->numColumns() !== 0) {
-        $row = $result->fetchArray(SQLITE3_ASSOC);
-
+    if ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
         $url = $row['real_url'];
 
         redirect($url);
     }
 } else {
-    $query = $db->prepare(<<<SQL
+    $statement = $db->prepare(<<<SQL
         SELECT *
         FROM urls;
     SQL);
 
-    $rows = $query->execute();
+    $statement->execute();
 }
 
 ?>
@@ -58,13 +54,13 @@ if ($_SERVER["REQUEST_URI"] !== '/') {
         </form>
 
         <ul>
-            <?php while($row = $rows->fetchArray(SQLITE3_ASSOC)): ?>
+            <?php foreach ($statement->fetchAll(PDO::FETCH_ASSOC) as $row): ?>
                 <li>
                     <a href="/<?= $row['shortcode'] ?>">
                         <?= $row['shortcode']; ?>
                     </a>
                 </li>
-            <?php endwhile; ?>
+            <?php endforeach; ?>
         </ul>
 
         <?php if (($success = flash('success')) || ($error = flash('error'))): ?>

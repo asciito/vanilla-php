@@ -21,22 +21,19 @@ $hash = md5($url);
 
 $db = connection();
 
-$query = $db->prepare(
+$statement = $db->prepare(
     <<<SQL
     INSERT INTO urls (real_url, shortcode)
     VALUES (:real, :short);
     SQL
 );
 
-$query->bindValue('real', $url);
-$query->bindValue('short', $hash);
+try {
+    $statement->execute(['real' => $url, 'short' => $hash]);
 
-$result = $query->execute();
-
-if ($result === false) {
-    flash('error', "The URL is already uploaded.");
-} else {
     flash('success', 'The URL was uploaded');
+} catch (PDOException $e) {
+    flash('error', "The URL is already uploaded.");
 }
 
 redirect('/');
