@@ -42,22 +42,66 @@ Ask for answers to AI tools (the solution code), or copy/paste code from any sou
 
 ## How to run challenges
 
-The challenges are simple PHP scripts, so you can use the already include PHP server. To run a challenge, just go to the folder you want, and
-run the next command:
+**Requirements**
 
-```shell
-php -S 0.0.0.0:8080
+* Docker
+
+Before running the docker services (containers), we need to configure the ```.env``` file, so first
+copy the ```.env.example```, and rename the it to ```.env```.
+
+```dotenv
+# Project
+CURRENT_PROJECT=
+
+# DB
+DB_HOST=db
+DB_NAME=
+DB_USER=
+DB_PASS=
+DB_INIT_FILE
 ```
 
-**Note**
+### ```CURRENT_PROJECT```
 
-Some challenges need some ```env``` variables, and to do that just simple prefix the ```php -s ...``` command with the
-```env``` variables needed.
+This is the name of the project you want to use
 
-e.g.
-```shell
-DB_NAME=... DB_PASS=... ... php -S 0.0.0.0:8080
+e.g
+```dotenv
+CURRENT_PROJECT=01-simple-blog-system
+
+# OTHER OPTIONS
+# ...
 ```
+
+### ```DB_HOST```
+The name of the DB service, in this case ```db```, and it's already set in the ```.env.example```
+
+### ```DB_NAME```
+The name of the database, and this is used in PHP as a ```environment``` variable. The value could
+be access with ```$_ENV``` super global array, or ```getenv()``` method.
+
+### ```DB_USER```
+The user for MySQL service, and this should be set, because this value is used to set when the service is first created.
+
+### ```DB_PASS```
+The user's password, and this as well as the user name, should be set, because this is set when the service is first created.
+
+### ```DB_INIT_FILE```
+This is the file that is run when the services is run the first time.
+
+e.g
+```dotenv
+# OTHER OPTIONS
+# ...
+
+DB_INIT_FILE=01-simple-blog-system/database/structure.sql
+```
+
+---
+
+#### Note
+Not all the projects needs a database, so is not mandatory to provided the values for the DB in the```.env```
+file, if the project doesn't need one.
 
 ---
 
