@@ -103,6 +103,18 @@ DB_INIT_FILE=01-simple-blog-system/database/structure.sql
 Not all the projects needs a database, so is not mandatory to provided the values for the DB in the```.env```
 file, if the project doesn't need one.
 
+If you want to delete all the files (```.gitkeep``` not included) from ```data/``` folder, run the next commands:
+
+```shell
+# Stop docker container and remove the services, and volumes.
+docker compose stop && docker compose rm -v
+
+# Next
+find ./data ! -name '.gitkeep' ! -path ./data -exec rm -rf {} +
+```
+
+The last command will delete all the files, except ```.gitkeep```, and you can start with a new fresh version of
+
 ---
 
 ## Challenges
